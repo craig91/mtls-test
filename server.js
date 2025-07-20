@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 require('dotenv').config();
 
 const app = express();
+app.use(express.json());
 const port = 3000;  
 
 const pool = mysql.createPool({
@@ -25,6 +26,23 @@ app.get('/users', (req, res) => {
         }
         res.json(results);
     });     
+});
+
+app.post('/users', (req, res) => {
+    const { first_name, last_name, email, job } = req.body;
+    if (!first_name || !last_name || !email || !job) {
+        return res.status(400).json({error: 'All fields (first_name, last_name, email, job) are required '});
+    }
+    const query = 'INSERT INTO USER_DATA (first_name, last_name, email, job) VALUES (?,?,?,?)';
+    const values = [first_name, last_name, email, job];
+
+    pool.query(query, values, (error, results) => {
+        if (error) {
+            console.error('Error inserting user:', error);
+            return res.status(500).json({error: 'Database error'});
+        }
+        res.status(201).json({message: 'User created successfully', userId: results.insertId });
+    });
 });
 
 
