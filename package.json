@@ -1,0 +1,23 @@
+{
+  "name": "mtls-test",
+  "version": "1.0.0",
+  "description": "testing mtls via an api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/craig91/mtls-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/craig91/mtls-test/issues"
+  },
+  "homepage": "https://github.com/craig91/mtls-test#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
