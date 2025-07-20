@@ -38,11 +38,11 @@ app.post('/users', (req, res) => {
 
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(email)) {
+    if (!emailClean || !emailRegex.test(emailClean)) {
         return res.status(400).json({ error: 'Email format is invalid '});
     }
     const query = 'INSERT INTO USER_DATA (first_name, last_name, email, job) VALUES (?,?,?,?)';
-    const values = [first_name.trim(), last_name.trim(), email.trim(), job.trim()];
+    const values = [first_name.trim(), last_name.trim(), emailClean, job.trim()];
 
     pool.query(query, values, (error, results) => {
         if (error) {
