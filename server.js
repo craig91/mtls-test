@@ -30,11 +30,19 @@ app.get('/users', (req, res) => {
 
 app.post('/users', (req, res) => {
     const { first_name, last_name, email, job } = req.body;
-    if (!first_name || !last_name || !email || !job) {
-        return res.status(400).json({error: 'All fields (first_name, last_name, email, job) are required '});
+
+    if (!first_name?.trim()) return res.status(400).json({ error: 'First name is required.' });
+    if (!last_name?.trim()) return res.status(400).json({ error: 'last name is required.' });
+    if (!email?.trim()) return res.status(400).json({ error: 'email is required.' });
+    if (!job?.trim()) return res.status(400).json({ error: 'Job title is required.' });
+
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Email format is invalid '});
     }
     const query = 'INSERT INTO USER_DATA (first_name, last_name, email, job) VALUES (?,?,?,?)';
-    const values = [first_name, last_name, email, job];
+    const values = [first_name.trim(), last_name.trim(), email.trim(), job.trim()];
 
     pool.query(query, values, (error, results) => {
         if (error) {
