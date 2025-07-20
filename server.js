@@ -38,6 +38,7 @@ app.post('/users', (req, res) => {
 
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailClean = email?trim();
     if (!emailClean || !emailRegex.test(emailClean)) {
         return res.status(400).json({ error: 'Email format is invalid '});
     }
