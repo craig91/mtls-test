@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/users', (req, res) => {
-    pool.query('SELECT * FROM users', (error, results) => {
+    pool.query('SELECT * FROM USER_DATA', (error, results) => {
         if (error) {
             console.error('Error querying DB:', error);
             return res.status(500).send('Database error');
