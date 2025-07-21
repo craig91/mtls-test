@@ -5,4 +5,17 @@ document.getElementById('loadusersBtn').addEventListener('click', () => {
             console.log(response);
             return response.json();
         })
+        .then(users => {
+            const container = document.getElementById('userList');
+            container.innerHTML = '';
+
+            users.foreach(user => {
+                const userDiv = document.createElement('div');
+                userDiv.textContent = `${user.first_name} ${user.last_name} - ${user.job}`;
+                container.appendChild(userDiv);
+            })
+        })
+        .catch(error => {
+            console.error('Error fetching users: ', error);
+        })
 })
