@@ -9,7 +9,7 @@ document.getElementById('loadusersBtn').addEventListener('click', () => {
             const container = document.getElementById('userList');
             container.innerHTML = '';
 
-            users.foreach(user => {
+            users.forEach(user => {
                 const userDiv = document.createElement('div');
                 userDiv.textContent = `${user.first_name} ${user.last_name} - ${user.job}`;
                 container.appendChild(userDiv);
