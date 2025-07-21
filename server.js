@@ -6,12 +6,12 @@ require('dotenv').config();
 
 
 
-app.use(cors());
+
 
 const app = express();
 app.use(express.json());
 const port = 3000;  
-
+app.use(cors());
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
