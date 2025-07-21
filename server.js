@@ -1,6 +1,8 @@
 const express = require('express');
+const fs = require('fs');
 const mysql = require('mysql2');
 require('dotenv').config();
+
 
 const app = express();
 app.use(express.json());
@@ -11,6 +13,12 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
+    ssl: {
+        ca: fs.readFileSync('./certs/ca-crt.pem'),
+        key: fs.readFileSync('./certs/client-key.pem'),
+        cert: fs.readFileSync('./certs/client-cert.pem'),
+        rejectUnauthorized: true
+    }
 });
 
 app.get('/', (req, res) => {
